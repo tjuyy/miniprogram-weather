@@ -21,7 +21,9 @@ Page({
     nowWeather: '晴天',
     nowTemp: 10,
     nowWeatherBackground: '',
-    hourlyWeather: []
+    hourlyWeather: [],
+    todayTemp: "",
+    todayDate: ""
   },
 
   onPullDownRefresh: function () {
@@ -50,7 +52,8 @@ Page({
         let result = res.data.result
         // console.log(result)
         this.setNow(result)
-        this.setHourlyWeather(result)        
+        this.setHourlyWeather(result)
+        this.setToday(result)
       },
       complete: () => {
         // wx.stopPullDownRefresh()
@@ -89,6 +92,16 @@ Page({
     this.setData({
       hourlyWeather: hourlyWeather
     })
+  },
+  setToday(result) {
+    let date = new Date()
+    this.setData({
+      todayDate: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} 今天`,
+      todayTemp: `${result.today.minTemp}° - ${result.today.maxTemp}°`
+    })
+
+
+
   }
 
 })
