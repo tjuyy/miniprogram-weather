@@ -46,41 +46,49 @@ Page({
         city: '天津市'
       },
       success: res => {
-        console.log(res)
+        // console.log(res)
         let result = res.data.result
-        let temp = result.now.temp
-        let weather = result.now.weather
-        console.log(temp, weather)
-        this.setData({
-          nowWeather: weatherMap[weather],
-          nowTemp: temp,
-          nowWeatherBackground: '/images/' + weather + '-bg.png'
-        })
-        wx.setNavigationBarColor({
-          frontColor: '#000000',
-          backgroundColor: weatherColorMap[weather],
-        })
-        console.log(result)
-        //set hourlyWeather
-        let forecast = result.forecast
-        let nowHour = new Date().getHours()
-        let hourlyWeather = []
-        for (let i = 0; i < 24; i += 3) {
-          hourlyWeather.push({
-            time: (i + nowHour) % 24 + '时',
-            iconPath : '/images/' + forecast[i/3].weather + '-icon.png',
-            temp: forecast[i/3].temp + '°'
-          })
-        }
-        hourlyWeather[0].time = '现在'
-        this.setData({
-          hourlyWeather: hourlyWeather
-        })
+        // console.log(result)
+        this.setNow(result)
+        this.setHourlyWeather(result)        
       },
       complete: () => {
         // wx.stopPullDownRefresh()
         callback && callback()
       }
+    })    
+  },
+
+  setNow(result) {
+    let temp = result.now.temp
+    let weather = result.now.weather
+    console.log(temp, weather)
+    this.setData({
+      nowWeather: weatherMap[weather],
+      nowTemp: temp,
+      nowWeatherBackground: '/images/' + weather + '-bg.png'
+    })
+    wx.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: weatherColorMap[weather],
+    })
+  },
+
+  setHourlyWeather(result) {
+    let forecast = result.forecast
+    let nowHour = new Date().getHours()
+    let hourlyWeather = []
+    for (let i = 0; i < 8; i ++) {
+      hourlyWeather.push({
+        time: (i * 3 + nowHour) % 24 + '时',
+        iconPath : '/images/' + forecast[i].weather + '-icon.png',
+        temp: forecast[i].temp + '°'
+      })
+    }
+    hourlyWeather[0].time = '现在'
+    this.setData({
+      hourlyWeather: hourlyWeather
     })
   }
+
 })
