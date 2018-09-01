@@ -20,7 +20,8 @@ Page({
   data: {
     nowWeather: '晴天',
     nowTemp: 10,
-    nowWeatherBackground: ''
+    nowWeatherBackground: '',
+    hourlyWeather: []
   },
 
   onPullDownRefresh: function () {
@@ -58,6 +59,22 @@ Page({
         wx.setNavigationBarColor({
           frontColor: '#000000',
           backgroundColor: weatherColorMap[weather],
+        })
+        console.log(result)
+        //set hourlyWeather
+        let forecast = result.forecast
+        let nowHour = new Date().getHours()
+        let hourlyWeather = []
+        for (let i = 0; i < 24; i += 3) {
+          hourlyWeather.push({
+            time: (i + nowHour) % 24 + '时',
+            iconPath : '/images/' + forecast[i/3].weather + '-icon.png',
+            temp: forecast[i/3].temp + '°'
+          })
+        }
+        hourlyWeather[0].time = '现在'
+        this.setData({
+          hourlyWeather: hourlyWeather
         })
       },
       complete: () => {
