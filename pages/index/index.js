@@ -99,9 +99,24 @@ Page({
       todayDate: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} 今天`,
       todayTemp: `${result.today.minTemp}° - ${result.today.maxTemp}°`
     })
+  },
 
-
-
+  onTapDayWeather() {
+    wx.showToast({
+      title: '确定',
+      icon: 'success', // "success", "loading", "none"
+      duration: 1500,
+      mask: false,
+      success: (res) => {
+        
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
+    })
   }
 
 })
