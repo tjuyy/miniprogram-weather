@@ -102,20 +102,8 @@ Page({
   },
 
   onTapDayWeather() {
-    wx.showToast({
-      title: '确定',
-      icon: 'success', // "success", "loading", "none"
-      duration: 1500,
-      mask: false,
-      success: (res) => {
-        
-      },
-      fail: (res) => {
-        
-      },
-      complete: (res) => {
-        
-      }
+    wx.navigateTo({
+      url: '/pages/list/list',
     })
   }
 
