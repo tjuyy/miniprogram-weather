@@ -17,6 +17,9 @@
   padding-bottom: 250rpx;
   /* background-color: moccasin; */
 }
+
+/*height 154rpx
+154=42+10+42+60*/
 .location-wrapper {
   margin-bottom: 60rpx;
   font-size: 30rpx;
